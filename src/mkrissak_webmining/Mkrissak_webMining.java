@@ -46,26 +46,36 @@ public class Mkrissak_webMining {
         ArrayList<String> kopiaVstupnehoSuboru = new ArrayList<>();
         String citanyRiadok;
         String[] poleNaExtrakciuIPAdresy = new String[13];
-        
 
         //otvor vstupny subor
-        vstupnySubor = new FileReader("testovaciLog.log");
+        System.out.println("Otváram vstupný súbor");
+        vstupnySubor = new FileReader("logOcistenyOdDatumov.log");
         citackaVstupnehoSuboru = new BufferedReader(vstupnySubor);
-
+        System.out.println("Vstupný súbor otvorený");
+        
         //vytvor a otvor vystupny subor
+        System.out.println("Vytváram výstupný súbor");
         vystupnySubor = new FileWriter(new File("vystupnyTestovaciLog.log"));
         zapisovacDoVystupnehoSuboru = new BufferedWriter(vystupnySubor);
+        System.out.println("Výstupný súbor vytvorený");
 
         //nacitaj vstupnySubor do premennej
+        System.out.println("Načítavam vstupný súbor do premennej");
         while ((citanyRiadok = citackaVstupnehoSuboru.readLine()) != null) {
             kopiaVstupnehoSuboru.add(citanyRiadok);
             //najdi robotov a pridaj ich IP adresy do druheho pola
+            System.out.println("Hľadám robotov");
             if (citanyRiadok.contains("robots.txt")) {
+                System.out.println("Našiel som robota");
                 poleNaExtrakciuIPAdresy = citanyRiadok.split(" ");
                 poleSIPAdresamiRobotov.add(poleNaExtrakciuIPAdresy[0]);
             }
         }
+        System.out.println("Vstupný súbor bol načítaný do premennej. "
+                + "Ďalej pracujem s touto premennou");
+        System.out.println("Všetky roboty boli nájdené");
 
+        System.out.println("Odstraňujem robotov");
         //odstran robotov
         for (int i = 0; i < kopiaVstupnehoSuboru.size(); i++) {
             for (int j = 0; j < poleSIPAdresamiRobotov.size(); j++) {
@@ -74,71 +84,85 @@ public class Mkrissak_webMining {
                 }
             }
         }
-        
+        System.out.println("Roboti boli odstránení.");
+
+        System.out.println("Začínam mazať nechcené záznamy.");
         //mazeme nepotrebne veci
-        for (int i = 0; i < kopiaVstupnehoSuboru.size(); i++){
-            //odstranenie png
-            if (kopiaVstupnehoSuboru.get(i).contains(".png"))
+        for (int i = 0; i < kopiaVstupnehoSuboru.size(); i++) {
+            //odstranenie metody POST
+            if (kopiaVstupnehoSuboru.get(i).contains("POST")) {
                 kopiaVstupnehoSuboru.remove(i);
-            //odstranenie css
-            else if (kopiaVstupnehoSuboru.get(i).contains(".css")){
+                System.out.println("Zmazal som záznam s metódou POST");
+            } //odstranenie png
+            else if (kopiaVstupnehoSuboru.get(i).contains(".png")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie js
-            else if (kopiaVstupnehoSuboru.get(i).contains(".js")){
+                System.out.println("Zmazal som záznam s príponou .png");
+            } //odstranenie css
+            else if (kopiaVstupnehoSuboru.get(i).contains(".css")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie jpg
-            else if (kopiaVstupnehoSuboru.get(i).contains(".jpg")){
+                System.out.println("Zmazal som záznam s príponou .css");
+            } //odstranenie js
+            else if (kopiaVstupnehoSuboru.get(i).contains(".js")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie flv
-            else if (kopiaVstupnehoSuboru.get(i).contains(".flv")){
+                System.out.println("Zmazal som záznam s príponou .js");
+            } //odstranenie jpg
+            else if (kopiaVstupnehoSuboru.get(i).contains(".jpg")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie gif
-            else if (kopiaVstupnehoSuboru.get(i).contains(".gif")){
+                System.out.println("Zmazal som záznam s príponou .jpg");
+            } //odstranenie flv
+            else if (kopiaVstupnehoSuboru.get(i).contains(".flv")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie ico
-            else if (kopiaVstupnehoSuboru.get(i).contains(".ico")){
+                System.out.println("Zmazal som záznam s príponou .flv");
+            } //odstranenie gif
+            else if (kopiaVstupnehoSuboru.get(i).contains(".gif")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie jpeg
-            else if (kopiaVstupnehoSuboru.get(i).contains(".jpeg")){
+                System.out.println("Zmazal som záznam s príponou .gif");
+            } //odstranenie ico
+            else if (kopiaVstupnehoSuboru.get(i).contains(".ico")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie swf
-            else if (kopiaVstupnehoSuboru.get(i).contains(".swf")){
+                System.out.println("Zmazal som záznam s príponou .ico");
+            } //odstranenie jpeg
+            else if (kopiaVstupnehoSuboru.get(i).contains(".jpeg")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie rss
-            else if (kopiaVstupnehoSuboru.get(i).contains(".rss")){
+                System.out.println("Zmazal som záznam s príponou .jpeg");
+            } //odstranenie swf
+            else if (kopiaVstupnehoSuboru.get(i).contains(".swf")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie xml
-            else if (kopiaVstupnehoSuboru.get(i).contains(".xml")){
+                System.out.println("Zmazal som záznam s príponou .swf");
+            } //odstranenie rss
+            else if (kopiaVstupnehoSuboru.get(i).contains(".rss")) {
                 kopiaVstupnehoSuboru.remove(i);
-            }
-            //odstranenie cur
-            else if (kopiaVstupnehoSuboru.get(i).contains(".cur")){
+                System.out.println("Zmazal som záznam s príponou .rss");
+            } //odstranenie xml
+            else if (kopiaVstupnehoSuboru.get(i).contains(".xml")) {
                 kopiaVstupnehoSuboru.remove(i);
+                System.out.println("Zmazal som záznam s príponou .xml");
+            } //odstranenie cur
+            else if (kopiaVstupnehoSuboru.get(i).contains(".cur")) {
+                kopiaVstupnehoSuboru.remove(i);
+                System.out.println("Zmazal som záznam s príponou .cur");
             }
         }
+        System.out.println("Nechcené záznamy boli zmazané.");
 
         //zapis premennej do vystupu
+        System.out.println("Zapisujem do výstupného súboru.");
         for (int i = 0; i < kopiaVstupnehoSuboru.size(); i++) {
             zapisovacDoVystupnehoSuboru.write(kopiaVstupnehoSuboru.get(i));
             zapisovacDoVystupnehoSuboru.write("\n");
         }
-
+        System.out.println("Hotovo.");
+        
         //zatvor vstupny subor
         vstupnySubor.close();
         citackaVstupnehoSuboru.close();
+        System.out.println("Vstupný súbor zatvorený.");
 
         //zatvor vystupny subor
         zapisovacDoVystupnehoSuboru.close();
         vystupnySubor.close();
-
+        System.out.println("Výstupný súbor zatvorený.");
+        
+        System.out.println("Mazanie nepotrebných záznamov je dokončené.");
     }
 }
